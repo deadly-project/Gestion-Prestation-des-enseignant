@@ -1,0 +1,12 @@
+//Creation du projet
+//Coté Client
+
+$npm create vite@latest
+Nom package = Client
+Framework = React
+Variant = Javascript
+
+//coté serveur
+$mkdir serveur  
+$npm init -y    //initialisation du gestion de packetage
+$volta pin node@22  //choix du versions de node
