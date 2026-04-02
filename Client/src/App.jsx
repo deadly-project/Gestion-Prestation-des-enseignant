@@ -1,15 +1,14 @@
-import { useState } from 'react'
 import './App.css'
 import Login from './Authentification/Login'
+import Signin from './Authentification/Sign_in';
 
 function App() {
-
   return (
-    <>
-      <Login></Login>
-      {/* {corps du style inconnu} <section id="spacer"></section> */}
+    <>    
+        <div><Signin/></div>
+      {/*{corps du style inconnu} <section id="spacer"></section> */}
     </>
-  )
+  );
 }
 
 export default App
