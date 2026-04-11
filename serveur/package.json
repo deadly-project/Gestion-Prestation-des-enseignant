@@ -9,7 +9,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "volta": {
     "node": "22.22.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
   }
 }

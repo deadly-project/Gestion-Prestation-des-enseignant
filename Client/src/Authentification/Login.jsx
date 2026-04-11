@@ -1,10 +1,22 @@
 import { useRef } from 'react';
 import '../css/Authentification/Login.css'
+import { useState } from 'react';
+import Axios from 'axios'
 
 export default function Login() {
+    const [Res, SetRes] = useState({})
     const onclickLogin = useRef();
-    function handleclickLogin(){
-
+    const url = 'http://localhost:3000/'
+    
+    const  handleclickLoginAxios = async () => {
+        const res = await Axios.get(url)
+        SetRes(res.data)
+    }
+    const handleclickLoginFetch = async() => {
+        const res = await fetch(url)
+        .then((data) => data.json())
+        .catch((error) => {console.log(error)})
+        SetRes(res)
     }
     return(
         <>
@@ -14,8 +26,8 @@ export default function Login() {
             <input type="text" />
             <label>Password :</label>
             <input type="password" />
-            <button onClick={handleclickLogin}>Login</button>
-
+            <button onClick={handleclickLoginAxios}>Login</button>
+            {Res && (<div>{Res.message}</div>)}
         </div>
         </>
     );
