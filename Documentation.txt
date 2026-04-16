@@ -10,3 +10,46 @@ Variant = Javascript
 $mkdir serveur  
 $npm init -y    //initialisation du gestion de packetage
 $volta pin node@22  //choix du versions de node
+
+//Coté base de donnée
+
+/** 
+Installation de mongo db communauté edition pour les version d'ubuntu 22.0
+//ajout du source de telechargement du paquet
+curl -fsSL https://pgp.mongodb.com/server-8.0.asc |    sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg    --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
+
+//Mettre à jour les paquet
+sudo apt-get update
+
+//Installation de mongod
+sudo apt-get install -y mongodb-org
+systemctl start mongod.service
+systemctl status mongod.service
+
+//Installation d'atlas, qui est un cluster pour assurer la perfomance et la haute disponibilité du serveur du DB
+sudo apt-get install -y mongodb-atlas
+atlas -v    //verification du version installer
+
+
+
+**/
+
+
+Création des fichier de configuration
+npm install dotenv
+créer un fichier .env dans le racine du serveur
+
+
+
+
+
+
+
+
+
+Documentation
+//pour mongodb
+https://www.mongodb.com/docs/get-started/?language=nodejs
+
+//express
