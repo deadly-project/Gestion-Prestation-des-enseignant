@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../css/Authentification/Sign_in.css'
+import axios from 'axios';
 export default function Signin(){
     const [nom, setNom] = useState('')
     const [prenom, setPrenom] = useState('')
@@ -9,12 +10,17 @@ export default function Signin(){
     const [confirmation, setConfirmation] = useState('');
     const [typemdp, setType] = useState('password')
     const [typeconfirmation, setTypeConfirmation] = useState('password')
+    const [Res, SetRes] = useState({})
+
     const handleClickSee = (valeur, set) => {
         (valeur === "password")? set("text") : set("password")
     }
+    const url = 'http://localhost:3000/test'
+    const user = {username, mdp}
     const handleClickSave = async () => {
-        const url = "";
-        const answer = await fetch()
+        console.log(user);
+        const response = await axios.post(url, user)
+        SetRes(response);
     }
     return(
         <>
@@ -43,6 +49,7 @@ export default function Signin(){
             </div>
             
             <button onClick={handleClickSave}>Enregistrer</button>
+            {Res && (<div>{Res.message}</div>)}
         </div>
         </>
     );

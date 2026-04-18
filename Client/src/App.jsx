@@ -6,7 +6,7 @@ import Signin from './Authentification/Sign_in';
 function App() {
   return (
     <>
-    <Login></Login>
+    <Signin></Signin>
         {/* <div><Signin/></div> */}
       {/*{corps du style inconnu} <section id="spacer"></section> */}
     </>

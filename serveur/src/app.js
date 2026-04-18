@@ -1,33 +1,31 @@
 import express from 'express'
 import pkg from 'cors'
 import 'dotenv/config'
+import { get, post, put, remove} from './Users/login.js';
+import { createUser } from './controller/testController.js';
+
 const cors = pkg;
 const router = express.Router()
-// const express = require('express')
 const app = express()
 const port = 3000
-const test = process.env.AUTEUR;
+
 app.use(cors())
 router.route('/')
     .all((req, res, next) => {
         next()
     })
-    .get((req, res, next) =>{
-        res.status(200).json({message: "Get"})
-        console.log('get')
+    .get(get)
+    .post(post)
+    .put(put)
+    .delete(remove)
+router.route('/test')
+    .post((req,res, next) => {
+        createUser(req, res);
+        console.log('test reussi')
     })
-    .post((req, res, next) =>{
-        res.status(200).json({message: "Post"})
-        console.log('post')
-    })
-    .put((req, res, next) =>{
-        res.status(200).json({message: "Put"})
-        console.log('put')
-    })
-    .delete((req, res, next) =>{
-        res.status(200).json({message: "Delete"})
-        console.log('delete')
-    })
+
+
+    
 // app.get('/', (req, res) => {
 //     req.
 //     res.setHeader('content-type', 'application/json')
@@ -35,6 +33,7 @@ router.route('/')
 //     console.log('get')
 // })
 app.listen(port)
-console.log(test)
+app.use(router)
+
 
 

@@ -27,12 +27,8 @@ sudo apt-get install -y mongodb-org
 systemctl start mongod.service
 systemctl status mongod.service
 
-//Installation d'atlas, qui est un cluster pour assurer la perfomance et la haute disponibilité du serveur du DB
-sudo apt-get install -y mongodb-atlas
-atlas -v    //verification du version installer
-
-
-
+//Installation de mongoose pour accéder au donnée de la base
+npm install mongoose
 **/
 
 

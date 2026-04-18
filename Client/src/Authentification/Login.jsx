@@ -6,7 +6,7 @@ import Axios from 'axios'
 export default function Login() {
     const [Res, SetRes] = useState({})
     const onclickLogin = useRef();
-    const url = 'http://localhost:3000/'
+    const url = 'http://localhost:3000/test'
     
     const  handleclickLoginAxios = async () => {
         const res = await Axios.get(url)
