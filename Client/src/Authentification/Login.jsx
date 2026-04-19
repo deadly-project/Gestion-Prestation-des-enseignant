@@ -6,11 +6,11 @@ import Axios from 'axios'
 export default function Login() {
     const [Res, SetRes] = useState({})
     const onclickLogin = useRef();
-    const url = 'http://localhost:3000/test'
+    const url = 'http://localhost:3000/'
     
     const  handleclickLoginAxios = async () => {
-        const res = await Axios.get(url)
-        SetRes(res.data)
+        await Axios.post(url, {nathan: "nathan"}).then((res) =>{SetRes(res.data)}).catch((error) =>{console.log(error)})
+        
     }
     const handleclickLoginFetch = async() => {
         const res = await fetch(url)

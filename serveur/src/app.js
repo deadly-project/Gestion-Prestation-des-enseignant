@@ -10,6 +10,8 @@ const app = express()
 const port = 3000
 
 app.use(cors())
+app.use(express.json())
+// app.use(express.urlencoded({ extended: true }));
 router.route('/')
     .all((req, res, next) => {
         next()
@@ -19,19 +21,15 @@ router.route('/')
     .put(put)
     .delete(remove)
 router.route('/test')
+    .all((req, res, next) => {
+        next()
+    })
     .post((req,res, next) => {
+        res.status(200).json({message: "Post test"})
+        
         createUser(req, res);
-        console.log('test reussi')
     })
 
-
-    
-// app.get('/', (req, res) => {
-//     req.
-//     res.setHeader('content-type', 'application/json')
-//     res.status(200).json({message: "Hello world"})
-//     console.log('get')
-// })
 app.listen(port)
 app.use(router)
 
