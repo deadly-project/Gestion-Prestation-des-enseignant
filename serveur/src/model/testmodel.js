@@ -8,7 +8,6 @@ db.once('open', () => {
   console.log('Connexion à MongoDB réussie');
 });
 
-
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true},
     mdp: {type: String, required: true}

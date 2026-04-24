@@ -26,7 +26,6 @@ router.route('/test')
     })
     .post((req,res, next) => {
         res.status(200).json({message: "Post test"})
-        
         createUser(req, res);
     })
 

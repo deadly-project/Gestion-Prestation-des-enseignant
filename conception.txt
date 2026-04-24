@@ -1,0 +1,76 @@
+﻿TABLE
+COMPTE
+Id_compte : Entier
+Username : String
+Password : String
+Role : String
+ENSEIGNANT
+Id_enseignant : Entier
+Nom : String
+Prenom : String
+Taux_horaire : Entier
+Avatar : String
+
+HISTORIQUE
+id_historique : String
+id_enseignant : Entier
+Nombre_heure : heure
+Date : date
+Salaire : Entier
+FONCTIONNALITÉ
+/Authentification
+Username + Password → Token
+Lien Créatrion de Compte
+Lien Mot de passe oublié
+
+/Dashboard
+ADMIN	
+	Username → en haut à droite
+	Graphique → Salaire moyen + Salaire minimum + Salaire maximum (tous + seul) = 
+		Total nombre d’heure * Taux horaire
+	Liste d’enseignant + Gestion de compte (reset | bloquer)
+	Visualisation d’un enseignant
+	Historique d’activité (tous + seul)
+USER
+	Username → en haut à droite
+	Graphique → Salaire moyen + Salaire minimum + Salaire maximum (seul) = 
+		Total nombre d’heure * Taux horaire
+	Historique d’activité (seul)
+	Gestion de compte (modification des infos)
+
+
+
+/Singin (Creation de compte)
+Nom
+Prenom
+Email
+Mot de passe
+Confirmation mot de passe
+Enregistrer | Annuler
+
+/Forget_Password
+Username | email | Nom | prénom → OTP par émail
+
+/Setting
+	ADMIN + USER
+	Modifier information (nom, prénom,émail, mot de passe, avatar)
+
+/Add_Teacher
+	Nom compte | Username
+	Poste
+	Taux_horaire
+/Update_Teacher
+	Nom compte | Username
+	Poste
+	Taux_horaire
+
+/Add_history
+	Nom compte | Username
+	Poste → auto
+	heure
+	date
+/Update_history
+	Nom compte | Username
+	Poste → auto
+	heure
+	date
