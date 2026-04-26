@@ -6,17 +6,19 @@ import Axios from 'axios'
 export default function Login() {
     const [Res, SetRes] = useState({})
     const onclickLogin = useRef();
-    const url = 'http://localhost:3000/'
+    const url = 'http://localhost:3000/test'
     
     const  handleclickLoginAxios = async () => {
-        await Axios.post(url, {nathan: "nathan"}).then((res) =>{SetRes(res.data)}).catch((error) =>{console.log(error)})
-        
+        await Axios.post(url, {nathan: "nathan"})
+        .then((res) =>{
+            SetRes(res.data)})
+        .catch((error) =>{console.log(error)})
     }
-    const handleclickLoginFetch = async() => {
-        const res = await fetch(url)
-        .then((data) => data.json())
-        .catch((error) => {console.log(error)})
-        SetRes(res)
+    const handleclickLoginGet = async() => {
+        await Axios.get(url)
+        .then((res) =>{
+            SetRes(res.data)})
+        .catch((error) =>{console.log(error)})
     }
     return(
         <>
@@ -26,7 +28,7 @@ export default function Login() {
             <input type="text" />
             <label>Password :</label>
             <input type="password" />
-            <button onClick={handleclickLoginAxios}>Login</button>
+            <button onClick={handleclickLoginGet}>Login</button>
             {Res && (<div>{Res.message}</div>)}
         </div>
         </>
