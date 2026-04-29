@@ -15,7 +15,7 @@ app.use(express.json())
 // app.use(express.urlencoded({ extended: true }));
 
 const test = Router()
-connection()
+connection(process.env.MONGO_URI)
 app.listen(port)
 app.use(router)
 app.use(test)

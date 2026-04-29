@@ -1,7 +1,6 @@
 import {mongoose} from "mongoose";
 
-export function connection(){
-    const uri = process.env.MONGO_URI;
+export function connection(uri){
     mongoose.connect(uri);
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Erreur de connexion avec MongoDB:'));
