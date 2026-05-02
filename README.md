@@ -13,7 +13,7 @@ Pour window :
 </a>
 
 <br>
-<p>Puis faite la commande pour les dépendances de node js 🚀</p>
+<p>Installation des dépendances de node js 🚀</p>
 <div backgroundcolor:"blue"> $ npm install </div>
 
 
