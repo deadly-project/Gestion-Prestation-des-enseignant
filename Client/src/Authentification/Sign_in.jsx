@@ -3,9 +3,11 @@ import '../css/Authentification/Sign_in.css'
 import axios from 'axios';
 export default function Signin(){
     const [userinfo, setUserinfo] = useState({
-        nom:"", prenom:"", poste:"", username:"", password:""
+        nom:"", prenom:"", username:"", password:""
     })
-    const [alert, setAlert] = useState({ alertUsername:"", alertPassword:""})
+    const [alert, setAlert] = useState({
+        resultatUsername:false, resultatPassword:false, alertUsername:"", alertPassword:"", alertAll:""
+    })
     const [confirmation, setConfirmation] = useState('');
     
     const [userExist, setuserExist] = useState(false)
@@ -18,40 +20,40 @@ export default function Signin(){
     const handleClickSee = (valeur, set) => {
         (valeur === "password")? set("text") : set("password")
     }
-
+    
+    //to verify username length and to see if username doesn't exist
     useEffect(() => {
         if(!userinfo.username) return;
 
-        if(username.length <= 2 ){
+        if(userinfo.username.length <= 2 ){
             setAlert(prev=>({...prev, alertUsername:"L'username doit être plus de 2 caractère !"}))
+        }else{
+            const verificationUsername = setTimeout(async () => 
+                {
+                    try{
+                            setAlert({...alert, alertUsername:"Verification ..."})
+                            const res = await axios.post(`${url}/verify`, {username:userinfo.username});
+                            console.log(res.data)
+                            //setUserinfo({...userinfo, username:username})
+                    }catch(error){
+                        console.log(error);
+                    }
+                }, 500)
+                return ()=> clearTimeout(verificationUsername);
         }
-        const verificationUsername = setTimeout(async()=>{
-        try{
-        
-                setAlert({...alert, alertUsername:""})
-                const res = await axios.post(`${url}/verify`, {username:username});
-                console.log(res.status)
-                setUserinfo({...userinfo, username:username})
-        }catch{
-            
-        }
-    }
-    )
-            
-
     }, [userinfo.username]);
     
     
     //to save
     const handleClickSave = async () => {
         console.log(userinfo);
-        if(!userinfo.username || !userinfo.password){
-            set
+        if(!userinfo.username || !userinfo.password || !userinfo.nom || !userinfo.prenom){
+            setAlert({...alert, alertAll:"Veuillez remplir tous le formulaire !"})
+            console.log(alert.alertAll);
+            return;
         }
-        //const response = await axios.post(`${url}/signin`, userinfo);
+        const response = await axios.post(`${url}/signin`, userinfo);
     }
-
-    //to verify username length and to see if username doesn't exist
     
 
     return(
@@ -63,15 +65,13 @@ export default function Signin(){
             <input type="text" name="" id="nom" onChange={e=>setUserinfo({...userinfo, nom:e.target.value})}/>
             <label htmlFor="Prenom">Prenom</label>
             <input type="text" name="" id="Prenom" onChange={e=>setUserinfo({...userinfo, prenom:e.target.value})}/>
-            <label htmlFor="Poste">Poste</label>
-            <input type="text" name="" id="Poste" onChange={e=>setUserinfo({...userinfo, poste:e.target.value})}/>
             <label htmlFor="Username">Nom d'utilisateur</label>
             <input type="text" name="" id="Username"  onChange={e=>setUserinfo({...userinfo, username:e.target.value})}/>
-            {alert && (<div>{alert.alertUsername}</div>)}
+            {alert && (<div style={{color:alert.resultat == true ? "vert" : "red"}}>{alert.alertUsername}</div>)}
             
             <label htmlFor="mdp">Mot de passe</label>
             <div >
-                <input type={typemdp} name="" id="mdp" onChange={(e) => {setMdp(e.target.value)}}/>
+                <input type={typemdp} name="" id="mdp" onChange={e=>setUserinfo({...userinfo, password:e.target.value})}/>
                 <button onClick={() => {handleClickSee(typemdp, setType)}}>voir</button>
             </div>
             
@@ -82,7 +82,7 @@ export default function Signin(){
             </div>
             
             <button onClick={handleClickSave}>Enregistrer</button>
-            {Res && (<div>{Res.message}</div>)}
+            {alert.alertAll && (<div>{alert.alertAll}</div>)}
         </div>
         </>
     );
