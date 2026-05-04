@@ -28,17 +28,18 @@ export default function Signin(){
         if(userinfo.username.length <= 2 ){
             setAlert(prev=>({...prev, alertUsername:"L'username doit être plus de 2 caractère !"}))
         }else{
+            setAlert({...alert, alertUsername:"Verification ..."})
             const verificationUsername = setTimeout(async () => 
                 {
                     try{
-                            setAlert({...alert, alertUsername:"Verification ..."})
                             const res = await axios.post(`${url}/verify`, {username:userinfo.username});
-                            console.log(res.data)
+                            console.log(res.data.available)
+                            setAlert({...alert, resultatUsername:res.data.available, alertUsername:res.data.message})
                             //setUserinfo({...userinfo, username:username})
                     }catch(error){
                         console.log(error);
                     }
-                }, 500)
+                }, 1000)
                 return ()=> clearTimeout(verificationUsername);
         }
     }, [userinfo.username]);
@@ -54,7 +55,13 @@ export default function Signin(){
         }
         const response = await axios.post(`${url}/signin`, userinfo);
     }
-    
+    const dispoUsername = (e) =>{
+        if(e){
+            return "green";   
+        }else{
+            return "red";
+        }
+    }
 
     return(
         <>
@@ -67,7 +74,7 @@ export default function Signin(){
             <input type="text" name="" id="Prenom" onChange={e=>setUserinfo({...userinfo, prenom:e.target.value})}/>
             <label htmlFor="Username">Nom d'utilisateur</label>
             <input type="text" name="" id="Username"  onChange={e=>setUserinfo({...userinfo, username:e.target.value})}/>
-            {alert && (<div style={{color:alert.resultat == true ? "vert" : "red"}}>{alert.alertUsername}</div>)}
+            {alert && (<div style={{color:dispoUsername(alert.resultatUsername)}}>{alert.alertUsername}</div>)}
             
             <label htmlFor="mdp">Mot de passe</label>
             <div >
