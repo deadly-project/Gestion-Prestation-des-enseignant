@@ -1,4 +1,4 @@
-import close from '../image/x-lg.svg'
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import '../css/Modal.css'
 function Modal({ isOpen, onClose ,component }){
     return (
@@ -6,7 +6,8 @@ function Modal({ isOpen, onClose ,component }){
             {isOpen && (
                 <div className="modal-overlay">
                         <div className="modal-content">
-                        <img src={close} className="close-button" onClick={onClose}/>
+                            <IoMdCloseCircleOutline className="close-button" onClick={onClose}/>
+                        {/*<img src={close} className="close-button" onClick={onClose}/>*/}
                             {component}
                         </div>
                 </div>

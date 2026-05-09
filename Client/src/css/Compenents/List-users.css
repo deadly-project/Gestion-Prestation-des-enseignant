@@ -3,3 +3,12 @@
     flex-direction: row;
     gap: 12px;
 }
+.btn-delete{
+    width: 25px;
+    height: 25px;
+}
+
+.btn-edit{
+    width: 25px;
+    height: 25px;
+}

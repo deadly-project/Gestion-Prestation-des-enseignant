@@ -1,12 +1,15 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import "../css/Compenents/List-users.css"
+import { MdDelete } from "react-icons/md";
+import { FaFilePen } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 export default function ListUser(){
+    const navigate = useNavigate();
     const url = 'http://localhost:3000/enseignant/';
     const token = localStorage.getItem("token");
     const [users, setUsers] = useState([]);
-    useEffect(()=>{
-        const fetchUser = async () =>{
+    const fetchUser = async () =>{
             try{
                 const res = await axios.get(url,
                     {
@@ -16,16 +19,21 @@ export default function ListUser(){
                 }
                 );
                 setUsers(res.data);
-                console.log(res.data);}
+                console.log(res.data);
+            }
             catch(err){
                 console.log(err)
             }
         }
+
+        //mettre à jours automatiquement la liste
+    useEffect(()=>{
         fetchUser();
     }, []);
 
-    const handleEdit = async (e) =>{
-        console.log(e);
+    const handleEdit = async (id) =>{
+        
+        navigate(`/update/${id}`);
     }
     const handleDelete = async (e) =>{
         console.log(e);
@@ -59,19 +67,10 @@ export default function ListUser(){
                 </td>
 
                 <td>
-                    <button
-                        onClick={() => handleEdit(u._id)}
-                        className="btn-edit"
-                    >
-                        Modifier
-                    </button>
-
-                    <button
-                        onClick={() => handleDelete(u._id)}
-                        className="btn-delete"
-                    >
-                        Supprimer
-                    </button>
+                    <FaFilePen onClick={() => handleEdit(u._id)}
+                        className="btn-edit"/>
+                    <MdDelete onClick={() => handleDelete(u._id)}
+                        className="btn-delete"/>
                 </td>
             </tr>
         ))}

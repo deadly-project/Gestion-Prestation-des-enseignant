@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-
+import { FiLogOut } from "react-icons/fi";
+import { IoHomeOutline } from "react-icons/io5";
+import { IoIosPersonAdd } from "react-icons/io";
 export default function Navbar() {
 
     const navigate = useNavigate();
@@ -17,7 +19,8 @@ export default function Navbar() {
         <nav>
 
             <Link to="/dashboard">
-                Dashboard
+                <IoHomeOutline />
+                 dashboard
             </Link>
             {" | "}
             <Link to="/setting">
@@ -25,6 +28,7 @@ export default function Navbar() {
             </Link>
             {" | "}
             <Link to="/addEnseignant">
+                <IoIosPersonAdd />
                 Ajouter un enseignant
             </Link>
             {" | "}
@@ -34,9 +38,7 @@ export default function Navbar() {
 
             {" | "}
 
-            <button onClick={logout}>
-                Logout
-            </button>
+            <FiLogOut onClick={logout}/>
 
         </nav>
 
