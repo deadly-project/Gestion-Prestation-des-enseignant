@@ -35,8 +35,30 @@ export default function ListUser(){
         
         navigate(`/update/${id}`);
     }
-    const handleDelete = async (e) =>{
-        console.log(e);
+    const handleDelete = async (id) =>{
+        const confirmDelete = window.confirm(
+        "Voulez-vous vraiment supprimer cet enseignant ?"
+    );
+
+    if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(
+                `${url}${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+        }catch(err){
+            console.error(err)
+            // supprimer de la liste React
+            setUsers(users.filter((u) => u._id !== id));
+
+            alert("Enseignant supprimé avec succès");
+        }
     }
     return(
         <div>

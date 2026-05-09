@@ -26,7 +26,7 @@ export const  UpdateEnseignant= async (req, res) =>{
             const updated = await Enseignant.findByIdAndUpdate(
                 req.params.id,
                 req.body,
-                { new: true }
+                { returnDocument: 'after' }
             );
     
             res.json(updated);
