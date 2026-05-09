@@ -1,4 +1,5 @@
 import Navbar from "./navbar";
+import ListUser from "./ListUser";
 export default function Dashboard(){
     const token = localStorage.getItem("token");
     const user = JSON.parse(
@@ -8,7 +9,7 @@ export default function Dashboard(){
         <>
             <div>{user.username}</div>
             <Navbar/>
-            <p>test</p>
+            <ListUser/>
         </>
     );
 }

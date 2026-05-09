@@ -6,7 +6,8 @@ const enseignant_schema = new mongoose.Schema({
     Nom: {type: String, required:true},
     Prenom: {type: String, required:true},
     Poste: {type: String, required:true},
-    Taux_horaire: {type: Number , required:true}
+    Taux_horaire: {type: Number , required:true},
+    Nb_heure: {type: Number , required:true}
 });
 const Enseignant = mongoose.model("enseignant", enseignant_schema);
 export default Enseignant;

@@ -11,14 +11,15 @@ export default function AddEnseignant(){
         Nom:"", 
         Prenom:"",
         Poste:"",
-        Taux_horaire:""
+        Taux_horaire:"",
+        Nb_heure:""
         });
     const [alert, setAlert] = useState({
         all:"",
         bool:false
     });
     const handleClickAddTeacher = async () =>{
-        if(!enseignant.Nom || !enseignant.Taux_horaire || !enseignant.Poste ) return setAlert({...alert, all:"Veuillez remplir tous les champs"});
+        if(!enseignant.Nom || !enseignant.Taux_horaire || !enseignant.Poste || !enseignant.Nb_heure ) return setAlert({...alert, all:"Veuillez remplir tous les champs"});
         try{
 
             const res = await axios.post(url, enseignant,
@@ -28,7 +29,7 @@ export default function AddEnseignant(){
                     }
                 }
             );
-            setEnseignant({ Nom:"", Prenom:"", Poste:"",Taux_horaire:""});
+            setEnseignant({ Nom:"", Prenom:"", Poste:"",Taux_horaire:"",Nb_heure:""});
             setAlert({...alert,all:"Utilisateur crée avec succès", bool:true});
             setTimeout(()=>{
                 setAlert({all:"", bool:false});
@@ -58,6 +59,8 @@ export default function AddEnseignant(){
                 <input type="text" name="" id="Prenom" value={enseignant.Prenom} onChange={e=>setEnseignant({...enseignant, Prenom:e.target.value})}/>
                 <label htmlFor="taux">Taux horaire</label>
                 <input type="number" name="" id="taux" value={enseignant.Taux_horaire} onChange={e=>setEnseignant({...enseignant, Taux_horaire:e.target.value})}/>
+                <label htmlFor="Nb_heure">Nombre d'heure</label>
+                <input type="number" name="" id="Nb_heure" value={enseignant.Nb_heure} onChange={e=>setEnseignant({...enseignant, Nb_heure:e.target.value})}/>
                 <label htmlFor="Poste">Poste</label>
                 <input type="text" name="" id="Poste" value={enseignant.Poste} onChange={e=>setEnseignant({...enseignant, Poste:e.target.value})}/>
                 <button onClick={handleClickAddTeacher}>Ajouter un enseignant</button>
