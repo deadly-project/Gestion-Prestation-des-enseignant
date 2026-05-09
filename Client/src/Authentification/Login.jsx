@@ -16,10 +16,14 @@ export default function Login() {
     const  handleclickLoginAxios = async () => {
         try{
             const res = await Axios.post(url, Login)
-            console.log(res.data)
+            console.log(res.data.user)
             localStorage.setItem(
                 "token",
                 res.data.token
+            );
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
             );
             navigate("/dashboard");
         }
