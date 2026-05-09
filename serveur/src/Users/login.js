@@ -1,28 +1,67 @@
 import User from "../model/user_modele.js"
-import bcryptjs from "bcryptjs"
-import "jsonwebtoken"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import "dotenv/config"
 
-export async function get(req, res) {
-    res.status(200).json({message: "Get"})
-        console.log('get')
-}
+// authentification de l'utilisateur
 export async function Authentification(req, res) {
-    console.log("username :"+req.body.username)
-    
-    
-    const user = new User(req.body)
-    console.log("requête trouver ou je sais pas"+user)
-    res.status(200).json({message: "Post authentification"})
-    console.log('post authentification')
-}
-export async function put(req, res) {
-    res.status(200).json({message: "Put"})
-        console.log('put')
-}
-export async function remove(req, res) {
-    res.status(200).json({message: "Remove"})
-        console.log('Remove')
-}
-export async function test(){
+
+    try {
+
+        console.log("username : " + req.body.username);
+
+        const { username, password } = req.body;
+
+        // IMPORTANT : await
+        const user = await User.findOne({ username });
+
+        console.log("recherche");
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Vérification mot de passe
+        const valid = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!valid) {
+            return res.status(401).json({
+                message: "Mot de passe erroné"
+            });
+        }
+
+        // Génération token
+        const token = jwt.sign(
+            { id: user._id },
+            process.env.SECRET_KEY,
+            { expiresIn: "1h" }
+        );
+
+        console.log("post authentification");
+
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                fullname: user.fullname,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
 
 }

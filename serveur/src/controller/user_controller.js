@@ -1,27 +1,38 @@
 import User from "../model/user_modele.js";
 import bcrypt from "bcryptjs";
 
+
 export async function createUser(req, res) {
     console.log(req.body)
     try{
         const {nom, prenom, username, password} = req.body;
         console.log(nom, prenom, username, password);
-        
-        const passwordHashed = bcrypt.hash(password, 10);
+         // Vérifie si utilisateur existe
+        const userExist = await User.findOne({ username });
+
+        if (userExist) {
+            return res.status(400).json({
+                message: "Nom utilisateur déjà utilisé"
+            });
+        }
+
+        const passwordHashed = await bcrypt.hash(password, 10);
         const fullname = `${nom} ${prenom}`;
 
         const newUser = new User({
             fullname,
             username,
-            passwordHashed,
+            password: passwordHashed,
             role:"user"
         })
+        await newUser.save();
         res.status(201).json({
             message:"Compte créer avec succès", 
             user:{
                 id: newUser._id,
                 username:newUser.username
             }});
+            console.log({id: newUser._id,username:newUser.username})
     }catch(err){
         console.log(err);
         res.status(500).json("Erreur serveur");
