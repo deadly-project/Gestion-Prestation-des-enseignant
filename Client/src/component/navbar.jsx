@@ -23,17 +23,9 @@ export default function Navbar() {
                  dashboard
             </Link>
             {" | "}
-            <Link to="/setting">
-                setting
-            </Link>
-            {" | "}
             <Link to="/addEnseignant">
                 <IoIosPersonAdd />
                 Ajouter un enseignant
-            </Link>
-            {" | "}
-            <Link to="/dashboard">
-                Dashboard
             </Link>
 
             {" | "}

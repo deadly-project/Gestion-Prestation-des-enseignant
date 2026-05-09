@@ -10,6 +10,20 @@ export default function Dashboard(){
         localStorage.getItem("user")
     );
     const [users, setUsers] = useState([]);
+    const [max, setMax] = useState(0);
+    const [min, setMin] = useState(0)
+    const [total, setTotal] = useState(0)
+    const calculSalaire = (e) =>{
+        for(let i=0;i>e.length;i++){
+            total=+e[i];
+            if(e[i]>max){
+                max=e[i];
+            }
+            if(e[i]<min){
+                min=e[i];
+            }
+        }
+    }
     const fetchUser = async () =>{
             try{
                 const res = await axios.get(url,
@@ -20,6 +34,12 @@ export default function Dashboard(){
                 }
                 );
                 setUsers(res.data);
+                const salaries = res.data?.length
+                    ? res.data.map(u => u.Taux_horaire * (u.Nb_heure || 0))
+                    : [];
+                    setMax(salaries.length ? Math.max(...salaries) : 0);
+                    setMin(salaries.length ? Math.min(...salaries) : 0);
+                    setTotal(salaries.length ? salaries.reduce((a, b) => a + b, 0) : 0);
                 console.log(res.data);
             }
             catch(err){
@@ -35,7 +55,12 @@ export default function Dashboard(){
         <>
             <div>{user.username}</div>
             <Navbar/>
-            <ListUser/>
+            <div>
+                {"Total :"+total+" Ar"}
+                {"Maximum :"+max+" Ar"}
+                {"Minimum :"+min+" Ar"}
+            </div>
+            <ListUser/> 
             <SalaireChart users={users} />
         </>
     );
